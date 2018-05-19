@@ -1,0 +1,92 @@
+<% content_for :page_title do %>
+  <%= link_to Spree.t(:title, scope: :spree_tracking), admin_time_line_index_path %> /
+  <%= Spree.t(:action_performed_at, scope: :spree_tracking) %> <b><%= @tracking.created_at.to_s(:australian) %></b>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:back), admin_time_line_index_path, icon: 'arrow-left' %>
+<% end %>
+
+<div class="time-line-details-container">
+  <table class="table table-condensed table-bordered">
+    <tr>
+      <td><b><%= Spree.t(:user) %></b></td>
+      <td>
+        <% if @tracking.user.present? %>
+          <%= link_to @tracking.user.email, edit_admin_user_path(@tracking.user), target: '_blank' %>
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b><%= Spree.t(:ip_address, scope: :spree_tracking) %></b></td>
+      <td><%= @tracking.ip_address %></td>
+    </tr>
+
+    <tr>
+      <td><b><%= Spree.t(:controller, scope: :spree_tracking) %></b></td>
+      <td><%= @tracking.controller %></td>
+    </tr>
+
+    <tr>
+      <td><b><%= Spree.t(:action, scope: :spree_tracking) %></b></td>
+      <td>
+        <%= @tracking.action %>
+        <% if @tracking.failed_request? %>
+          <span class="label label-considered_risky"><%= Spree.t(:error) %></span>
+        <% end %>
+      </td>
+    </tr>
+
+    <tr>
+      <td><b><%= Spree.t(:entity_type, scope: :spree_tracking) %></b></td>
+      <td><%= @tracking.entity_type.constantize rescue @tracking.entity_type.titleize %></td>
+    </tr>
+
+    <% if @tracking.entity_id.present? %>
+      <tr>
+        <td><b><%= Spree.t(:entity_id, scope: :spree_tracking) %></b></td>
+        <td><%= @tracking.entity_id %></td>
+      </tr>
+    <% end %>
+
+    <% if @tracking.entity_errors.present? %>
+      <tr>
+        <td><b><%= Spree.t(:entity_errors, scope: :spree_tracking) %></b></td>
+        <td>
+          <pre><%= pretty_json(@tracking.entity_errors) %></pre>
+        </td>
+      </tr>
+    <% end %>
+
+    <% if @tracking.flash.present? %>
+      <tr>
+        <td><b><%= Spree.t(:flash, scope: :spree_tracking) %></b></td>
+        <td>
+          <pre><%= pretty_json(@tracking.flash) %></pre>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td><b><%= Spree.t(:request_parameters, scope: :spree_tracking) %></b></td>
+      <td>
+        <pre><%= pretty_json(@tracking.request_parameters) %></pre>
+      </td>
+    </tr>
+
+    <% if @tracking.request_parameters != @tracking.updated_parameters %>
+      <tr>
+        <td><b><%= Spree.t(:updated_parameters, scope: :spree_tracking) %></b></td>
+        <td>
+          <pre><%= pretty_json(@tracking.updated_parameters) %></pre>
+        </td>
+      </tr>
+    <% end %>
+
+    <tr>
+      <td><b><%= Spree.t(:response_code, scope: :spree_tracking) %></b></td>
+      <td><%= @tracking.response_code %></td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,22 @@
+en:
+  spree:
+    spree_tracking:
+      action: Action
+      action_performed_at: Action Performed At
+      actions_performed_from: Actions Performed From
+      actions_performed_upto: Actions Performed Upto
+      controller: Controller
+      entity_id: Entity ID
+      entity_type: Entity Type
+      entity_errors: Entity Errors
+      entity_errors_cont: Entity Error Message Contains
+      flash: Flash Message
+      flash_cont: Flash Message Contains
+      ip_address: IP Address
+      response_code: Response Code
+      request_parameters: Request Parameters
+      request_parameters_cont: Request Parameters Contains
+      title: Time Line
+      updated_parameters: Updated Parameters
+      user_email: User Email
+      view: View
