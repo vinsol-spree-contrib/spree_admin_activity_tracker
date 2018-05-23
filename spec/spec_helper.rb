@@ -18,6 +18,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
+require 'shoulda-matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -50,6 +51,16 @@ RSpec.configure do |config|
 
   Capybara::Screenshot.register_driver(:chrome) do |driver, path|
     driver.browser.save_screenshot(path)
+  end
+
+  Shoulda::Matchers.configure do |shoulda_config|
+    shoulda_config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+
+      # Choose one or more libraries:er
+      with.library :rails
+    end
   end
 
   # Infer an example group's spec type from the file location.
