@@ -1,13 +1,19 @@
 SpreeSimpleAdminActivityTracker
 ===============================
 
+Demo
+-----------------------------------
+Try Spree Admin Activity Tracker for Spree 3-4 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-admin-activity-tracker)
+
 Introduction goes here.
 
 ## Installation
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_simple_admin_activity_tracker', github: '[your-github-handle]/spree_simple_admin_activity_tracker'
+  gem 'spree_simple_admin_activity_tracker', github: 'vinsol-spree-contrib/spree_admin_activity_tracker', branch: 'master'
   ```
 
 2. Install the gem using Bundler:
@@ -23,6 +29,13 @@ Introduction goes here.
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+
+## Working
+
+1. Process any request on the admin section.
+
+2. Go to Congifuration tab on the sidebar and select time line option. All the processes are listed.
+
 
 ## Testing
 

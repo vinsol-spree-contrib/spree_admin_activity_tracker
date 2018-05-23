@@ -1,92 +1,126 @@
 <% content_for :page_title do %>
-  <%= link_to Spree.t(:title, scope: :spree_tracking), admin_time_line_index_path %> /
-  <%= Spree.t(:action_performed_at, scope: :spree_tracking) %> <b><%= @tracking.created_at.to_s(:australian) %></b>
+  <%= Spree.t(:title, scope: :spree_tracking) %>
 <% end %>
 
-<% content_for :page_actions do %>
-  <%= button_link_to Spree.t(:back), admin_time_line_index_path, icon: 'arrow-left' %>
+<% content_for :table_filter do %>
+  <%= search_form_for [:admin, @search], url: admin_time_line_index_path do |f| %>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :entity_type_cont, Spree.t(:entity_type, scope: :spree_tracking) %>
+          <%= f.text_field :entity_type_cont, class: 'form-control js-filterable js-quick-search-target' %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :user_email_cont, Spree.t(:user_email, scope: :spree_tracking) %>
+          <%= f.text_field :user_email_cont, class: 'form-control js-filterable' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :created_at_gt, Spree.t(:actions_performed_from, scope: :spree_tracking) %>
+          <div class="input-group">
+            <%= f.text_field :created_at_gt, class: 'datepicker datepicker-from form-control js-filterable', value: datepicker_field_value(params[:q][:created_at_gt].try(:to_datetime)), placeholder: Spree.t(:from, scope: :spree_tracking).capitalize %>
+            <span class="input-group-addon">
+              <i class="icon icon-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :created_at_lt, Spree.t(:actions_performed_upto, scope: :spree_tracking) %>
+          <div class="input-group">
+            <%= f.text_field :created_at_lt, class: 'datepicker datepicker-to form-control js-filterable', value: datepicker_field_value(params[:q][:created_at_lt].try(:to_datetime)), placeholder: Spree.t(:upto, scope: :spree_tracking) %>
+            <span class="input-group-addon">
+              <i class="icon icon-calendar"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :response_code_eq, Spree.t(:response_code, scope: :spree_tracking) %>
+          <%= f.select :response_code_eq, Spree::Tracking.pluck(:response_code).uniq.sort, { include_blank: true }, class: 'select2 js-filterable' %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :request_parameters_cont, Spree.t(:request_parameters_cont, scope: :spree_tracking) %>
+          <%= f.text_field :request_parameters_cont, class: 'form-control js-filterable' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :entity_errors_cont, Spree.t(:entity_errors_cont, scope: :spree_tracking) %>
+          <%= f.text_field :entity_errors_cont, class: 'form-control js-filterable' %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :flash_cont, Spree.t(:flash_cont, scope: :spree_tracking) %>
+          <%= f.text_field :flash_cont, class: 'form-control js-filterable' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= button Spree.t(:filter_results), 'search' %>
+    </div>
+  <% end %>
 <% end %>
 
-<div class="time-line-details-container">
-  <table class="table table-condensed table-bordered">
-    <tr>
-      <td><b><%= Spree.t(:user) %></b></td>
-      <td>
-        <% if @tracking.user.present? %>
-          <%= link_to @tracking.user.email, edit_admin_user_path(@tracking.user), target: '_blank' %>
-        <% end %>
-      </td>
-    </tr>
-
-    <tr>
-      <td><b><%= Spree.t(:ip_address, scope: :spree_tracking) %></b></td>
-      <td><%= @tracking.ip_address %></td>
-    </tr>
-
-    <tr>
-      <td><b><%= Spree.t(:controller, scope: :spree_tracking) %></b></td>
-      <td><%= @tracking.controller %></td>
-    </tr>
-
-    <tr>
-      <td><b><%= Spree.t(:action, scope: :spree_tracking) %></b></td>
-      <td>
-        <%= @tracking.action %>
-        <% if @tracking.failed_request? %>
-          <span class="label label-considered_risky"><%= Spree.t(:error) %></span>
-        <% end %>
-      </td>
-    </tr>
-
-    <tr>
-      <td><b><%= Spree.t(:entity_type, scope: :spree_tracking) %></b></td>
-      <td><%= @tracking.entity_type.constantize rescue @tracking.entity_type.titleize %></td>
-    </tr>
-
-    <% if @tracking.entity_id.present? %>
+<% if @trackings.present? %>
+  <table class="table">
+    <thead>
       <tr>
-        <td><b><%= Spree.t(:entity_id, scope: :spree_tracking) %></b></td>
-        <td><%= @tracking.entity_id %></td>
+        <th><%= Spree.t(:action_performed_at, scope: :spree_tracking) %></th>
+        <th><%= Spree.t(:user) %></th>
+        <th><%= Spree.t(:entity_type, scope: :spree_tracking) %></th>
+        <th><%= Spree.t(:entity_id, scope: :spree_tracking) %></th>
+        <th><%= Spree.t(:controller, scope: :spree_tracking) %></th>
+        <th><%= Spree.t(:action, scope: :spree_tracking) %></th>
+        <th></th>
       </tr>
-    <% end %>
+    </thead>
 
-    <% if @tracking.entity_errors.present? %>
-      <tr>
-        <td><b><%= Spree.t(:entity_errors, scope: :spree_tracking) %></b></td>
-        <td>
-          <pre><%= pretty_json(@tracking.entity_errors) %></pre>
-        </td>
-      </tr>
-    <% end %>
-
-    <% if @tracking.flash.present? %>
-      <tr>
-        <td><b><%= Spree.t(:flash, scope: :spree_tracking) %></b></td>
-        <td>
-          <pre><%= pretty_json(@tracking.flash) %></pre>
-        </td>
-      </tr>
-    <% end %>
-
-    <tr>
-      <td><b><%= Spree.t(:request_parameters, scope: :spree_tracking) %></b></td>
-      <td>
-        <pre><%= pretty_json(@tracking.request_parameters) %></pre>
-      </td>
-    </tr>
-
-    <% if @tracking.request_parameters != @tracking.updated_parameters %>
-      <tr>
-        <td><b><%= Spree.t(:updated_parameters, scope: :spree_tracking) %></b></td>
-        <td>
-          <pre><%= pretty_json(@tracking.updated_parameters) %></pre>
-        </td>
-      </tr>
-    <% end %>
-
-    <tr>
-      <td><b><%= Spree.t(:response_code, scope: :spree_tracking) %></b></td>
-      <td><%= @tracking.response_code %></td>
-    </tr>
+    <tbody>
+      <% @trackings.each do |tracking| %>
+        <tr>
+          <td><%= tracking.created_at.to_s(:australian) %></td>
+          <td>
+            <% if tracking.user.present? %>
+              <%= link_to tracking.user.email, edit_admin_user_path(tracking.user), target: '_blank' %>
+            <% end %>
+          </td>
+          <td><%= tracking.entity_type.constantize rescue tracking.entity_type.titleize %></td>
+          <td><%= tracking.entity_id %></td>
+          <td><%= tracking.controller %></td>
+          <td>
+            <%= tracking.action %>
+            <% if tracking.failed_request? %>
+              <span class="label label-considered_risky"><%= Spree.t(:error) %></span>
+            <% end %>
+          </td>
+          <td><%= link_to_with_icon('info-sign', Spree.t(:view, scope: :spree_tracking), admin_time_line_path(tracking), no_text: true, class: "btn btn-default btn-sm") %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
-</div>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: plural_resource_name(Spree::Tracking)) %>
+  </div>
+<% end %>
+
+<%= render 'spree/admin/shared/index_table_options', collection: @trackings %>

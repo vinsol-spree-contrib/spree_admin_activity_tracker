@@ -1,0 +1,2 @@
+<!-- insert_bottom "[data-hook='admin_configurations_sidebar_menu']" -->
+<%= configurations_sidebar_menu_item(Spree.t(:title, scope: :spree_tracking), spree.admin_time_line_index_path) %>
