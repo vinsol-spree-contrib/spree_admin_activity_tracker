@@ -13,7 +13,11 @@ module Spree
     private
 
     def track_changes?
-      !request.get? && try_spree_current_user.present? && try_spree_current_user.admin?
+      ( !request.get? || adjustment_request ) && try_spree_current_user.present? && try_spree_current_user.admin?
+    end
+
+    def adjustment_request
+      request['action'].in? ['close_adjustments', 'open_adjustments']
     end
 
     def store_request_params
