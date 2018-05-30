@@ -16,6 +16,8 @@ Introduction goes here.
   gem 'spree_simple_admin_activity_tracker', github: 'vinsol-spree-contrib/spree_admin_activity_tracker', branch: 'master'
   ```
 
+  **Note** Not supported For Spree Version < 3-2
+
 2. Install the gem using Bundler:
   ```ruby
   bundle install
@@ -43,7 +45,7 @@ First bundle your dependencies, then run `rake`. `rake` will default to building
 
 ```shell
 bundle
-bundle exec rake
+bundle exec rspec spec
 ```
 
 When testing your applications integration with this extension you may use it's factories.
@@ -56,8 +58,15 @@ require 'spree_simple_admin_activity_tracker/factories'
 
 ## Contributing
 
-If you'd like to contribute, please take a look at the
-[instructions](CONTRIBUTING.md) for installing dependencies and crafting a good
-pull request.
+  1. [Fork](https://help.github.com/articles/fork-a-repo) the project
+  2. Make one or more well commented and clean commits to the repository. You can make a new branch here if you are modifying more than one part or feature.
+  3. Add tests for it. This is important so I don’t break it in a future version unintentionally.
+  4. Perform a [pull request](https://help.github.com/articles/using-pull-requests) in github's web interface.
 
-Copyright (c) 2018 [name of extension creator], released under the New BSD License
+
+Credits
+-------
+
+[![vinsol.com: Ruby on Rails, iOS and Android developers](http://vinsol.com/vin_logo.png "Ruby on Rails, iOS and Android developers")](http://vinsol.com)
+
+Copyright (c) 2017 [vinsol.com](http://vinsol.com "Ruby on Rails, iOS and Android developers"), released under the New MIT License

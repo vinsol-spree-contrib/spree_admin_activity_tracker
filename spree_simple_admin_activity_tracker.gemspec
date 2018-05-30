@@ -41,4 +41,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'shoulda'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'shoulda-callback-matchers'
+  s.add_development_dependency 'rspec-activemodel-mocks', '~> 1.0.3'
 end

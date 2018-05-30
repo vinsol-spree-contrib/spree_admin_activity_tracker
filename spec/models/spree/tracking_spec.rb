@@ -57,42 +57,47 @@ describe Spree::Tracking, type: :model do
       end
 
       context "when entity errors is present" do
+        let(:tracking) { FactoryBot.create(:tracking) }
+        before { tracking.entity_errors[:error] = 'error' }
+
         it "is expected to return false" do
-          tracking = Spree::Tracking.new
-          tracking.entity_errors[:error] = 'error'
           expect(tracking.failed_request?).to eq(true)
         end
       end
 
       context "when flash errors is present" do
+        let(:tracking) { FactoryBot.create(:tracking) }
+        before { tracking.flash[:error] = 'error' }
+
         it "is expected to return false" do
-          tracking = Spree::Tracking.new
-          tracking.flash[:error] = 'error'
           expect(tracking.failed_request?).to eq(true)
         end
       end
     end
 
     describe 'request action' do
+      let(:tracking) { FactoryBot.create(:tracking) }
+      before { tracking.request_parameters[:action] = 'test' }
+
       it "is expected to return request_parameters action" do
-        tracking = Spree::Tracking.new
-        tracking.request_parameters[:action] = 'test'
         expect(tracking.action).to eq('test')
       end
     end
 
     describe 'controller' do
+      let(:tracking) { FactoryBot.create(:tracking) }
+      before { tracking.request_parameters[:controller] = 'test' }
+
       it "is expected to return request_parameters controller" do
-        tracking = Spree::Tracking.new
-        tracking.request_parameters[:controller] = 'test'
         expect(tracking.controller).to eq('test')
       end
     end
 
     describe 'entity_id' do
+      let(:tracking) { FactoryBot.create(:tracking) }
+      before { tracking.request_parameters[:id] = 'test' }
+
       it "is expected to return request_parameters entity_id" do
-        tracking = Spree::Tracking.new
-        tracking.request_parameters[:id] = 'test'
         expect(tracking.entity_id).to eq('test')
       end
     end
