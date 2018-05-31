@@ -41,7 +41,7 @@ module Spree
 
     def fetch_entity_type
       if respond_to?(:model_class, true) && model_class.present?
-        model_class.to_s
+        model_class.to_s.demodulize
       else
         controller_name
       end
