@@ -2,19 +2,19 @@
 lib = File.expand_path('../lib/', __FILE__)
 $LOAD_PATH.unshift lib unless $LOAD_PATH.include?(lib)
 
-require 'spree_simple_admin_activity_tracker/version'
+require 'spree_admin_activity_tracker/version'
 
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree_simple_admin_activity_tracker'
-  s.version     = SpreeSimpleAdminActivityTracker.version
+  s.name        = 'spree_admin_activity_tracker'
+  s.version     = SpreeAdminActivityTracker.version
   s.summary     = 'Add extension summary here'
   s.description = 'Add (optional) extension description here'
   s.required_ruby_version = '>= 2.2.7'
 
   s.author    = 'Tanmay Sinha'
   s.email     = 'tanmay@vinsol.com'
-  s.homepage  = 'https://github.com/your-github-handle/spree_simple_admin_activity_tracker'
+  s.homepage  = 'https://github.com/your-github-handle/spree_admin_activity_tracker'
   s.license   = 'BSD-3-Clause'
 
   # s.files       = `git ls-files`.split("\n").reject { |f| f.match(/^spec/) && !f.match(/^spec\/fixtures/) }

@@ -39,8 +39,8 @@ require 'capybara-screenshot/rspec'
 require 'capybara/rails'
 
 
-# Requires factories defined in lib/spree_simple_admin_activity_tracker/factories.rb
-require 'spree_simple_admin_activity_tracker/factories'
+# Requires factories defined in lib/spree_admin_activity_tracker/factories.rb
+require 'spree_admin_activity_tracker/factories'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods

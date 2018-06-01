@@ -1,7 +1,7 @@
-module SpreeSimpleAdminActivityTracker
+module SpreeAdminActivityTracker
   module_function
 
-  # Returns the version of the currently loaded SpreeSimpleAdminActivityTracker as a
+  # Returns the version of the currently loaded SpreeAdminActivityTracker as a
   # <tt>Gem::Version</tt>.
   def version
     Gem::Version.new VERSION::STRING

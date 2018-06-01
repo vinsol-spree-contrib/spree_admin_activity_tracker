@@ -3,7 +3,7 @@ FactoryBot.define do
   #
   # Example adding this to your spec_helper will load these Factories for use:
 
-  # require 'spree_simple_admin_activity_tracker/factories'
+  # require 'spree_admin_activity_tracker/factories'
   factory :tracking, class: Spree::Tracking do
     association :user, factory: :user
   end

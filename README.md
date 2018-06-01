@@ -1,4 +1,4 @@
-SpreeSimpleAdminActivityTracker
+SpreeAdminActivityTracker
 ===============================
 
 Demo
@@ -13,7 +13,7 @@ Introduction goes here.
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_simple_admin_activity_tracker', github: 'vinsol-spree-contrib/spree_admin_activity_tracker', branch: 'master'
+  gem 'spree_admin_activity_tracker', github: 'vinsol-spree-contrib/spree_admin_activity_tracker', branch: 'master'
   ```
 
   **Note** Not supported For Spree Version < 3-2
@@ -25,7 +25,7 @@ Introduction goes here.
 
 3. Copy & run migrations
   ```ruby
-  bundle exec rails g spree_simple_admin_activity_tracker:install
+  bundle exec rails g spree_admin_activity_tracker:install
   ```
 
 4. Restart your server
@@ -52,7 +52,7 @@ When testing your applications integration with this extension you may use it's 
 Simply add this require statement to your spec_helper:
 
 ```ruby
-require 'spree_simple_admin_activity_tracker/factories'
+require 'spree_admin_activity_tracker/factories'
 ```
 
 

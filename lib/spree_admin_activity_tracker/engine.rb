@@ -1,8 +1,8 @@
-module SpreeSimpleAdminActivityTracker
+module SpreeAdminActivityTracker
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree
-    engine_name 'spree_simple_admin_activity_tracker'
+    engine_name 'spree_admin_activity_tracker'
 
     # use rspec for tests
     config.generators do |g|
