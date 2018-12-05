@@ -1,6 +1,8 @@
 SpreeAdminActivityTracker
 ===============================
 
+SpreeCommerce Extension to track the activities of multiple admins on the SpreeCommerce store and give more information about the activities.
+
 Demo
 -----------------------------------
 Try Spree Admin Activity Tracker for Spree 3-4 with direct deployment on Heroku:
