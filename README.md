@@ -40,6 +40,12 @@ Simply add this require statement to your spec_helper:
 require 'spree_simple_admin_activity_tracker/factories'
 ```
 
+## See It In Action
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=B1TWMYWQRss
+" target="_blank"><img src="http://img.youtube.com/vi/B1TWMYWQRss/0.jpg" 
+alt="Youtube Video Tutorial" /></a>
+
 
 ## Contributing
 
