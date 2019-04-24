@@ -13,7 +13,7 @@ module Spree
     private
 
     def track_changes?
-      !request.get? && try_spree_current_user.present? && try_spree_current_user.roles.any?(&:admin?)
+      !request.get? && try_spree_current_user.present? && try_spree_current_user.admin?
     end
 
     def store_request_params
