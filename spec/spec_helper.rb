@@ -17,26 +17,30 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
 require 'database_cleaner'
+require 'factory_bot'
 require 'ffaker'
+require 'shoulda-matchers'
+require 'devise'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
-Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each { |f| require f }
-
 # Requires factories and other useful helpers defined in spree_core.
-require 'spree/testing_support/authorization_helpers'
-require 'spree/testing_support/capybara_ext'
-require 'spree/testing_support/controller_requests'
 require 'spree/testing_support/factories'
 require 'spree/testing_support/url_helpers'
+require 'spree/testing_support/authorization_helpers'
+require 'spree/testing_support/controller_requests'
+require 'spree/testing_support/preferences'
+require 'rspec-activemodel-mocks'
+require 'spree/testing_support/capybara_ext'
 
 require 'capybara/rspec'
 require 'capybara-screenshot'
 require 'capybara-screenshot/rspec'
 require 'capybara/rails'
 
-# Requires factories defined in lib/spree_simple_admin_activity_tracker/factories.rb
-require 'spree_simple_admin_activity_tracker/factories'
+
+# Requires factories defined in lib/spree_admin_activity_tracker/factories.rb
+require 'spree_admin_activity_tracker/factories'
 
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
@@ -52,40 +56,36 @@ RSpec.configure do |config|
     driver.browser.save_screenshot(path)
   end
 
+
+  Shoulda::Matchers.configure do |shoulda_config|
+    shoulda_config.integrate do |with|
+      # Choose a test framework:
+      with.test_framework :rspec
+
+      # Choose one or more libraries:er
+      with.library :rails
+    end
+  end
+
   # Infer an example group's spec type from the file location.
   config.infer_spec_type_from_file_location!
 
-  # == URL Helpers
-  #
-  # Allows access to Spree's routes in specs:
-  #
-  # visit spree.admin_path
-  # current_path.should eql(spree.products_path)
-  config.include Spree::TestingSupport::UrlHelpers
-
-  # == Requests support
-  #
-  # Adds convenient methods to request Spree's controllers
-  # spree_get :index
   config.include Spree::TestingSupport::ControllerRequests, type: :controller
+  config.include Spree::TestingSupport::UrlHelpers
+  config.include Devise::TestHelpers, type: :controller
 
-  # == Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
   config.mock_with :rspec
   config.color = true
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # Capybara javascript drivers require transactional fixtures set to false, and we use DatabaseCleaner
-  # to cleanup after each test instead.  Without transactional fixtures set to false the records created
-  # to setup a test will be unavailable to the browser, which runs under a separate server instance.
+
   config.use_transactional_fixtures = false
+  config.fail_fast = false
+  config.filter_run focus: true
+  config.run_all_when_everything_filtered = true
+
 
   # Ensure Suite is set to use transactions for speed.
   config.before :suite do
@@ -107,3 +107,13 @@ RSpec.configure do |config|
   config.fail_fast = ENV['FAIL_FAST'] || false
   config.order = "random"
 end
+
+def setup_for_admin_interface
+  allow(controller).to receive(:generate_admin_api_key)
+  allow(controller).to receive(:authorize_admin)
+  allow(Spree::Admin::BaseController).to receive(:ssl_required)
+  allow(Spree::Config).to receive(:[])
+end
+ActiveJob::Base.queue_adapter = :test
+Dir["./spec/support/**/*.rb"].sort.each {|f| require f}
+

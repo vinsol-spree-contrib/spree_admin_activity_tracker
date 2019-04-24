@@ -1,5 +1,13 @@
-SpreeSimpleAdminActivityTracker
+SpreeAdminActivityTracker
 ===============================
+
+SpreeCommerce Extension to track the activities of multiple admins on the SpreeCommerce store and give more information about the activities.
+
+Demo
+-----------------------------------
+Try Spree Admin Activity Tracker for Spree 3-4 with direct deployment on Heroku:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/vinsol-spree-contrib/spree-demo-heroku/tree/spree-admin-activity-tracker)
 
 Introduction goes here.
 
@@ -7,8 +15,10 @@ Introduction goes here.
 
 1. Add this extension to your Gemfile with this line:
   ```ruby
-  gem 'spree_simple_admin_activity_tracker', github: '[your-github-handle]/spree_simple_admin_activity_tracker'
+  gem 'spree_admin_activity_tracker', github: 'vinsol-spree-contrib/spree_admin_activity_tracker', branch: 'master'
   ```
+
+  **Note** Not supported For Spree Version < 3-2
 
 2. Install the gem using Bundler:
   ```ruby
@@ -17,12 +27,19 @@ Introduction goes here.
 
 3. Copy & run migrations
   ```ruby
-  bundle exec rails g spree_simple_admin_activity_tracker:install
+  bundle exec rails g spree_admin_activity_tracker:install
   ```
 
 4. Restart your server
 
   If your server was running, restart it so that it can find the assets properly.
+
+## Working
+
+1. Process any request on the admin section.
+
+2. Go to Congifuration tab on the sidebar and select time line option. All the processes are listed.
+
 
 ## Testing
 
@@ -30,14 +47,14 @@ First bundle your dependencies, then run `rake`. `rake` will default to building
 
 ```shell
 bundle
-bundle exec rake
+bundle exec rspec spec
 ```
 
 When testing your applications integration with this extension you may use it's factories.
 Simply add this require statement to your spec_helper:
 
 ```ruby
-require 'spree_simple_admin_activity_tracker/factories'
+require 'spree_admin_activity_tracker/factories'
 ```
 
 ## See It In Action
@@ -49,8 +66,15 @@ alt="Youtube Video Tutorial" /></a>
 
 ## Contributing
 
-If you'd like to contribute, please take a look at the
-[instructions](CONTRIBUTING.md) for installing dependencies and crafting a good
-pull request.
+  1. [Fork](https://help.github.com/articles/fork-a-repo) the project
+  2. Make one or more well commented and clean commits to the repository. You can make a new branch here if you are modifying more than one part or feature.
+  3. Add tests for it. This is important so I don’t break it in a future version unintentionally.
+  4. Perform a [pull request](https://help.github.com/articles/using-pull-requests) in github's web interface.
 
-Copyright (c) 2018 [name of extension creator], released under the New BSD License
+
+Credits
+-------
+
+[![vinsol.com: Ruby on Rails, iOS and Android developers](http://vinsol.com/vin_logo.png "Ruby on Rails, iOS and Android developers")](http://vinsol.com)
+
+Copyright (c) 2017 [vinsol.com](http://vinsol.com "Ruby on Rails, iOS and Android developers"), released under the New MIT License

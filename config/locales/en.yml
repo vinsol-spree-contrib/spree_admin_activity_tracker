@@ -16,7 +16,9 @@ en:
       response_code: Response Code
       request_parameters: Request Parameters
       request_parameters_cont: Request Parameters Contains
-      title: Time Line
+      title: Admin Activity Tracking
       updated_parameters: Updated Parameters
       user_email: User Email
       view: View
+      from: From
+      upto: Upto

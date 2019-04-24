@@ -32,11 +32,11 @@ module Spree
     end
 
     def entity_id
-      @entity_id ||= request_parameters[:id]
+      @entity_id ||= request_parameters[:id] ? request_parameters[:id] : 'None'
     end
 
     def controller
-      @controller ||= request_parameters[:controller]
+      @controller ||= request_parameters[:controller].gsub('spree/', '')
     end
 
     def action
